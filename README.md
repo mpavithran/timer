@@ -15,7 +15,7 @@
 - [x] Snack Bar Behavior
 - [x] Fix Snack Bar Console Error
 - [x] Extract Common Components
-- [ ] Consolidate Modal Code
+- [x] Consolidate Modal Code
 - [x] Validation Snack Bars
 - [x] Responsive Snack Bar Placement
 - [ ] Write Tests

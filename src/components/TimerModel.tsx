@@ -5,18 +5,34 @@ import { validateTimerForm } from '../utils/validation';
 import { Timer } from '../types/timer';
 import { Button } from './Button';
 
-interface EditTimerModalProps {
+const defaultTimer: Timer = {
+  id: '',
+  title: '',
+  description: '',
+  duration: 0,
+  remainingTime: 0,
+  isRunning: false,
+  createdAt: 0,
+};
+
+interface TimerModalProps {
+  variant: 'add' | 'edit' | 'cancel';
   isOpen: boolean;
   onClose: () => void;
-  timer: Timer;
+  timer?: Timer;
 }
 
-export const EditTimerModal: React.FC<EditTimerModalProps> = ({ isOpen, onClose, timer }) => {
-  const [title, setTitle] = useState(timer.title);
-  const [description, setDescription] = useState(timer.description);
-  const [hours, setHours] = useState(Math.floor(timer.duration / 3600));
-  const [minutes, setMinutes] = useState(Math.floor((timer.duration % 3600) / 60));
-  const [seconds, setSeconds] = useState(timer.duration % 60);
+export const TimerModal: React.FC<TimerModalProps> = ({
+  variant = 'add',
+  isOpen,
+  onClose,
+  timer = defaultTimer,
+}) => {
+  const [title, setTitle] = useState(timer ? timer.title : '');
+  const [description, setDescription] = useState(timer ? timer.description : '');
+  const [hours, setHours] = useState(timer ? Math.floor(timer.duration / 3600) : 0);
+  const [minutes, setMinutes] = useState(timer ? Math.floor((timer.duration % 3600) / 60) : 0);
+  const [seconds, setSeconds] = useState(timer ? timer.duration % 60 : 0);
   const [touched, setTouched] = useState({
     title: false,
     hours: false,
@@ -24,7 +40,7 @@ export const EditTimerModal: React.FC<EditTimerModalProps> = ({ isOpen, onClose,
     seconds: false,
   });
 
-  const { editTimer } = useTimerStore();
+  const { addTimer, editTimer } = useTimerStore();
 
   useEffect(() => {
     if (isOpen) {
@@ -52,12 +68,22 @@ export const EditTimerModal: React.FC<EditTimerModalProps> = ({ isOpen, onClose,
     }
 
     const totalSeconds = hours * 3600 + minutes * 60 + seconds;
-
-    editTimer(timer.id, {
-      title: title.trim(),
-      description: description.trim(),
-      duration: totalSeconds,
-    });
+    if (variant === 'add') {
+      addTimer({
+        title: title.trim(),
+        description: description.trim(),
+        duration: totalSeconds,
+        remainingTime: totalSeconds,
+        isRunning: false,
+      });
+    }
+    if (variant === 'edit') {
+      editTimer(timer.id, {
+        title: title.trim(),
+        description: description.trim(),
+        duration: totalSeconds,
+      });
+    }
 
     onClose();
   };
@@ -81,7 +107,9 @@ export const EditTimerModal: React.FC<EditTimerModalProps> = ({ isOpen, onClose,
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center gap-2">
             <Clock className="w-5 h-5 text-blue-600" />
-            <h2 className="text-xl font-semibold">Edit Timer</h2>
+            <h2 className="text-xl font-semibold">
+              {variant === 'add' ? 'Add New Timer' : 'Edit Timer'}
+            </h2>
           </div>
           <button
             onClick={handleClose}
@@ -177,8 +205,8 @@ export const EditTimerModal: React.FC<EditTimerModalProps> = ({ isOpen, onClose,
             <Button variant="cancel" type="button" onClick={handleClose}>
               Cancel
             </Button>
-            <Button variant="edit" isValid={isTitleValid && isTimeValid} type="submit">
-              Save Changes
+            <Button variant={variant} isValid={isTitleValid && isTimeValid} type="submit">
+              {variant === 'add' ? ' Add Timer' : 'Save Changes'}
             </Button>
           </div>
         </form>

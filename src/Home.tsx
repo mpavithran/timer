@@ -1,17 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Plus, Clock } from 'lucide-react';
 import { TimerList } from './components/TimerList';
-import { AddTimerModal } from './components/AddTimerModal';
+// import { AddTimerModal } from './components/AddTimerModal';
 import { Toaster } from 'sonner';
+import { TimerModal } from './components/TimerModel';
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const mobileCheck = () => {
+      localStorage.setItem('isMobile', JSON.stringify(window.innerWidth <= 768));
+    };
+    mobileCheck();
+    window.addEventListener('resize', mobileCheck);
+
+    return () => window.removeEventListener('resize', mobileCheck);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <Toaster position="top-right" />
       <div className="container mx-auto px-4 py-8">
-        <div>
+        <div className="flex justify-between items-center">
           <div className="flex items-center gap-3">
             <Clock className="w-8 h-8 text-blue-600" />
             <h1 className="text-3xl font-bold text-gray-900">Timer</h1>
@@ -24,13 +35,10 @@ function Home() {
             Add Timer
           </button>
         </div>
-        
+
         <TimerList />
-        
-        <AddTimerModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-        />
+
+        <TimerModal variant="add" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       </div>
     </div>
   );

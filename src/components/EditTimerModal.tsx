@@ -177,12 +177,7 @@ export const EditTimerModal: React.FC<EditTimerModalProps> = ({ isOpen, onClose,
             <Button variant="cancel" type="button" onClick={handleClose}>
               Cancel
             </Button>
-            <Button
-              variant="edit"
-              isValid={isTitleValid && isTimeValid}
-              type="submit"
-              disabled={!isTitleValid || !isTimeValid}
-            >
+            <Button variant="edit" isValid={isTitleValid && isTimeValid} type="submit">
               Save Changes
             </Button>
           </div>

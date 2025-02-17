@@ -172,12 +172,7 @@ export const AddTimerModal: React.FC<AddTimerModalProps> = ({ isOpen, onClose })
             <Button variant="cancel" type="button" onClick={handleClose}>
               Cancel
             </Button>
-            <Button
-              variant="add"
-              isValid={isTitleValid && isTimeValid}
-              type="submit"
-              disabled={!isTitleValid || !isTimeValid}
-            >
+            <Button variant="add" isValid={isTitleValid && isTimeValid} type="submit">
               Add Timer
             </Button>
           </div>

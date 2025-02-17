@@ -12,9 +12,9 @@
 
 - [x] Match the UI
 - [x] Simultaneous Timers
-- [ ] Snack Bar Behavior
+- [x] Snack Bar Behavior
 - [x] Fix Snack Bar Console Error
-- [ ] Extract Common Components
+- [x] Extract Common Components
 - [ ] Consolidate Modal Code
 - [ ] Validation Snack Bars
 - [ ] Responsive Snack Bar Placement

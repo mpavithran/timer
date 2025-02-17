@@ -76,11 +76,9 @@ export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
         </div>
         
         <div className="relative">
-          <div className="flex justify-between items-start mb-4">
-            <div>
-              <h3 className="text-xl font-semibold text-gray-800">{timer.title}</h3>
-              <p className="text-gray-600 mt-1">{timer.description}</p>
-            </div>
+          <div className="flex flex-col justify-between items-start mb-4 w-full">
+            <div className="w-full flex justify-between items-center">
+              <h3 className="text-xl font-semibold text-gray-800 truncate">{timer.title}</h3>
             <div className="flex gap-2">
               <button
                 onClick={() => setIsEditModalOpen(true)}
@@ -104,6 +102,8 @@ export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
                 <Trash2 className="w-5 h-5" />
               </button>
             </div>
+           </div>
+            <p className="w-[100%] text-gray-600 mt-1 truncate">{timer.description}</p>
           </div>
           <div className="flex flex-col items-center mt-6">
             <div className="text-4xl font-mono font-bold text-gray-800 mb-4">

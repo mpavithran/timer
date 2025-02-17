@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Plus, Clock } from 'lucide-react';
 import { TimerList } from './components/TimerList';
 import { AddTimerModal } from './components/AddTimerModal';
@@ -6,6 +6,16 @@ import { Toaster } from 'sonner';
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const mobileCheck = () => {
+      localStorage.setItem('isMobile', JSON.stringify(window.innerWidth <= 768));
+    };
+    mobileCheck();
+    window.addEventListener('resize', mobileCheck);
+
+    return () => window.removeEventListener('resize', mobileCheck);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
@@ -24,13 +34,10 @@ function Home() {
             Add Timer
           </button>
         </div>
-        
+
         <TimerList />
-        
-        <AddTimerModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-        />
+
+        <AddTimerModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       </div>
     </div>
   );

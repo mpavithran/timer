@@ -17,9 +17,9 @@
 - [x] Extract Common Components
 - [ ] Consolidate Modal Code
 - [x] Validation Snack Bars
-- [ ] Responsive Snack Bar Placement
+- [x] Responsive Snack Bar Placement
 - [ ] Write Tests
-- [ ] Timer Persistence
+- [x] Timer Persistence
 
 ---
 

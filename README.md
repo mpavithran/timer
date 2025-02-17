@@ -28,7 +28,7 @@
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/mpavithran/timer/git
+   git clone https://github.com/mpavithran/timer.git
    ```
 
 2. Install dependencies:

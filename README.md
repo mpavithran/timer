@@ -11,7 +11,7 @@
 ## Tasks Completion:
 
 - [x] Match the UI
-- [ ] Simultaneous Timers
+- [x] Simultaneous Timers
 - [ ] Snack Bar Behavior
 - [ ] Fix Snack Bar Console Error
 - [ ] Extract Common Components
